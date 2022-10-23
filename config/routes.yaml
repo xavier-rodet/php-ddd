@@ -1,3 +1,10 @@
-controllers:
-    resource: ../src/Controller/
-    type: attribute
+controllers_account:
+  resource: '../src/Account/src/Presentation/Api/'
+  type: annotation
+# controllers_game:
+#   resource: '../src/Game/Presentation/Controller/'
+#   type: annotation
+
+# controllers_store:
+#   resource: '../src/Store/Presentation/Controller/'
+#   type: annotation
