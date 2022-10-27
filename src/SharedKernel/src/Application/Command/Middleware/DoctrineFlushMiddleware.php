@@ -17,7 +17,6 @@ class DoctrineFlushMiddleware implements CommandBusInterface
         ManagerRegistry $doctrine
     ) {
         $this->next = $next;
-        // See: https://symfony.com/doc/current/doctrine.html#persisting-objects-to-the-database
         $this->entityManager = $doctrine->getManager();
     }
     

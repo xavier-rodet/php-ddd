@@ -4,12 +4,12 @@ namespace SharedKernel\Application\Command;
 
 class CommandResponse
 {
-    public readonly mixed $value;
+    public readonly string $id;
     public readonly array $events;
 
-    public function __construct(mixed $value, object... $events)
+    public function __construct(string $id, object... $events)
     {
-        $this->value = $value;
+        $this->id = $id;
         $this->events = $events ?? [];
     }
 

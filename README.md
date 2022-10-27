@@ -14,6 +14,7 @@ Account / Game / Social
 
 - Publisher can RegisterPublisher/ UpdatePublisher
 - Player can RegisterPlayer / UpdatePlayer
+- Anyone can ListPlayers / ListPublishers
 
 ### Game
 
@@ -21,14 +22,14 @@ Account / Game / Social
   - Publisher can PublishGame
   - Player can PurchaseCredits / PurchaseGame
 - Library:
-  - Player can SeeLibraryGames
+  - Player can ListLibraryGames
   - Player can DownloadLibraryGame
 - Review:
-  - Anyone can SeeGameReviews
+  - Anyone can ListGameReviews
   - Player can AddReviewToLibraryGame
 
 ### Social
 
 - Player can UpdateStatus
-- Player can SeeFriends / AddFriend / BlockFriend
+- Player can ListFriends / AddFriend / BlockFriend
 - Player can SendMessageToFriend

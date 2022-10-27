@@ -7,16 +7,17 @@ use Account\Domain\Event\PlayerRegisteredEvent;
 use Account\Domain\Repository\PlayerRepositoryInterface;
 use SharedKernel\Application\Command\CommandHandlerInterface;
 use SharedKernel\Application\Command\CommandResponse;
+use SharedKernel\Application\Command\CommandType;
 use SharedKernel\Domain\ValueObject\Email;
 
 class RegisterPlayerCommandHandler implements CommandHandlerInterface
 {
-    private PlayerRepositoryInterface $playerRepository;
+    // private PlayerRepositoryInterface $playerRepository;
 
-    public function __construct(PlayerRepositoryInterface $playerRepository)
-    {
-        $this->playerRepository = $playerRepository;
-    }
+    // public function __construct(PlayerRepositoryInterface $playerRepository)
+    // {
+    //     $this->playerRepository = $playerRepository;
+    // }
     
     /**
      * handle
@@ -32,10 +33,10 @@ class RegisterPlayerCommandHandler implements CommandHandlerInterface
             avatarUrl: $command->avatarUrl
         );
 
-        $this->playerRepository->add($player);
+        // $this->playerRepository->add($player);
 
         return new CommandResponse(
-            $player->id,
+            $player->id->value,
             new PlayerRegisteredEvent($player->email->value, $player->nickname)
         );
     }

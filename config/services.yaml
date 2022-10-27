@@ -17,8 +17,8 @@ services:
     # services whose classes are instances of CustomInterface will be tagged automatically
     SharedKernel\Application\Command\CommandHandlerInterface:
       tags: ['ddd.command_handler']
-    # App\SharedKernel\Application\Query\QueryHandlerInterface:
-    #   tags: ['ddd.query_handler']
+    SharedKernel\Application\Query\QueryHandlerInterface:
+      tags: ['ddd.query_handler']
     SharedKernel\Application\Event\EventHandlerInterface:
       tags: ['ddd.event_handler']
 
@@ -32,19 +32,7 @@ services:
 
   Account\:
     resource: '../src/Account/src/'
-  # # controllers are imported separately to make sure services can be injected
-  # # as action arguments even if you don't extend any base controller class
-  # Account\Presentation\Api\:
-  #   resource: '../src/Account/src/Presentation/Api'
-  #   tags: ['controller.service_arguments']
-
-  # App\Game\Presentation\Controller\:
-  #   resource: '../src/Game/Presentation/Controller'
-  #   tags: ['controller.service_arguments']
-
-  # App\Store\Presentation\Controller\:
-  #   resource: '../src/Store/Presentation/Controller'
-  #   tags: ['controller.service_arguments']
+    exclude: '../src/Account/src/Infrastructure/Entity'
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
@@ -53,10 +41,10 @@ services:
     arguments: [!tagged ddd.command_handler]
     lazy: true
 
-  # App\SharedKernel\Application\Query\QueryBusInterface:
-  #   factory: 'App\SharedKernel\Application\Query\QueryBusFactory::build'
-  #   arguments: [!tagged ddd.query_handler]
-  #   lazy: true
+  SharedKernel\Application\Query\QueryBusInterface:
+    factory: 'SharedKernel\Application\Query\QueryBusFactory::build'
+    arguments: [!tagged ddd.query_handler]
+    lazy: true
 
   SharedKernel\Application\Event\EventBusInterface:
     factory: 'SharedKernel\Application\Event\EventBusFactory::build'

@@ -1,6 +1,6 @@
 <?php
 
-namespace Account\Application\EventHandler;
+namespace Account\Application\Event;
 
 use Account\Domain\Event\PlayerRegisteredEvent;
 use SharedKernel\Application\Event\EventHandlerInterface;

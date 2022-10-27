@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/account')]
 class RegisterPlayerController extends AbstractController
 {
     private SerializerInterface $serializer;
@@ -21,7 +22,7 @@ class RegisterPlayerController extends AbstractController
         $this->commandBus = $commandBus;
     }
 
-    #[Route('/register_player', name: 'register_player', methods: ['POST'])]
+    #[Route('/players', name: 'register_player', methods: ['POST'])]
     public function __invoke(Request $request): JsonResponse
     {
         $command = $this->serializer->deserialize(
@@ -31,6 +32,6 @@ class RegisterPlayerController extends AbstractController
         );
         $response = $this->commandBus->dispatch($command);
 
-        return new JsonResponse($response->value, JsonResponse::HTTP_CREATED);
+        return new JsonResponse($response->id, JsonResponse::HTTP_CREATED);
     }
 }
