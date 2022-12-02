@@ -1,21 +1,33 @@
 version: '3'
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
+  ###> doctrine/doctrine-bundle ###
+  account_db:
     image: postgres:${POSTGRES_VERSION:-14}-alpine
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
+      POSTGRES_DB: ${POSTGRES_DB:-account}
       # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pwd}
+      POSTGRES_USER: ${POSTGRES_USER:-account}
     volumes:
-      - db-data:/var/lib/postgresql/data:rw
+      - account-db-data:/var/lib/postgresql/data:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+  ###< doctrine/doctrine-bundle ###
+
+## TODO: apt-get install php8.1-pgsql
+# app:
+#   image: dunglas/frankenphp
+#   environment:
+#     FRANKENPHP_CONFIG: worker ./public/index.php
+#     APP_RUNTIME: Runtime\\FrankenPhpSymfony\\Runtime
+#   volumes:
+#     - $PWD:/app
+#   ports:
+#     - 8080:8080
+#     # - 443:443
 
 volumes:
-###> doctrine/doctrine-bundle ###
-  db-data:
+  ###> doctrine/doctrine-bundle ###
+  account-db-data:
 ###< doctrine/doctrine-bundle ###

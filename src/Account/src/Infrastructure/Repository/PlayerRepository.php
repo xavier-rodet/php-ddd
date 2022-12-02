@@ -1,85 +1,64 @@
 <?php
 
-namespace App\Repository\Infrastructure\Entity;
+namespace Account\Infrastructure\Repository;
 
 use Account\Domain\Aggregate\Player as AggregatePlayer;
 use Account\Domain\Repository\PlayerRepositoryInterface;
 use Account\Infrastructure\Entity\Player;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityNotFoundException;
+// use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use PlayerMapper;
 use SharedKernel\Domain\ValueObject\Uuid;
 
-/**
- * @extends ServiceEntityRepository<Player>
- *
- * @method Player|null find($id, $lockMode = null, $lockVersion = null)
- * @method Player|null findOneBy(array $criteria, array $orderBy = null)
- * @method Player[]    findAll()
- * @method Player[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class PlayerRepository extends ServiceEntityRepository implements PlayerRepositoryInterface
+// class PlayerRepository extends EntityRepository implements PlayerRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Player::class);
+        // parent::__construct($registry->getManager('account'), Player::class);
     }
 
     public function get(Uuid $id): AggregatePlayer
     {
-        $doctrineEntity = $this->em
-            ->getRepository(Player::class)
-            ->find($id->value);
-
+        $doctrineEntity = $this->find($id->value);
         if(!$doctrineEntity) {
             throw new EntityNotFoundException();
         }
 
-        return AggregatePlayer::mapToDomain($doctrineEntity);
-        
-
-        // return new Player(
-        //     id: $id, 
-        //     email: new Email('fake@email.fr'),
-        //     nickname:'fakename'
-        // );
+        return PlayerMapper::mapToDomain($doctrineEntity);
     }
 
     public function add(AggregatePlayer $player): void
     {
-        $this->em
-            ->merge(AggregatePlayer::mapFromDomain($player));
-            // TODO: see how to do it (not compatible Doctrine 3)
+        $doctrineEntity = PlayerMapper::mapFromDomain($player);
+        $this->getEntityManager()->persist($doctrineEntity);
+        // $this->getEntityManager()->flush();
     }
 
     public function update(AggregatePlayer $player): void
     {
-        $this->em
-            ->merge(AggregatePlayer::mapFromDomain($player));
-            // TODO: see how to do it (not compatible Doctrine 3)
+        $doctrineEntity = $this->find($player->id->value);
+        if(!$doctrineEntity) {
+            throw new EntityNotFoundException();
+        }
+
+        $doctrineEntity = PlayerMapper::mapFromDomain($player, $doctrineEntity);
+        $this->getEntityManager()->remove($doctrineEntity);
+        // $this->getEntityManager()->flush();
     }
 
     public function delete(Uuid $id): void
     {
         $doctrineEntity = $this->find($id->value);
-        $this->remove($doctrineEntity);
-    }
 
-    public function save(Player $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
+        if(!$doctrineEntity) {
+            throw new EntityNotFoundException();
         }
-    }
 
-    public function remove(Player $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->remove($doctrineEntity);
+        // $this->getEntityManager()->flush();
     }
 }

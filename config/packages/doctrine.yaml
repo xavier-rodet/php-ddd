@@ -1,25 +1,52 @@
+# See: https://symfony.com/doc/current/doctrine/multiple_entity_managers.html
 doctrine:
   dbal:
-    url: '%env(resolve:DATABASE_URL)%'
+    connections:
+      account:
+        url: '%env(resolve:ACCOUNT_DATABASE_URL)%'
+        driver: 'pdo_pgsql'
+        server_version: '14'
+        charset: utf8
 
     # IMPORTANT: You MUST configure your server version,
     # either here or in the DATABASE_URL env var (see .env file)
     #server_version: '13'
   orm:
     auto_generate_proxy_classes: true
-    naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-    auto_mapping: true
-    mappings:
-      App:
-        is_bundle: false
-        dir: '%kernel.project_dir%/src/Entity'
-        prefix: 'App\Entity'
-        alias: App
-      # Account:
-      #   is_bundle: false
-      #   dir: '%kernel.project_dir%/src/Account/src/Infrastructure/Entity'
-      #   prefix: 'Account\Infrastructure\Entity'
-      #   alias: Account
+    entity_managers:
+      account:
+        connection: account
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+          Account:
+            type: annotation
+            dir: '%kernel.project_dir%/src/Account/src/Infrastructure/Entity'
+            prefix: 'Account\Infrastructure\Entity'
+            alias: Account
+
+  # orm:
+  #   auto_generate_proxy_classes: true
+  #   naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+  #   auto_mapping: true
+  #   mappings:
+  #     Account:
+  #       type: annotation
+  #       dir: '%kernel.project_dir%/src/Account/src/Infrastructure/Entity'
+  #       prefix: 'Account\Infrastructure\Entity'
+  #       alias: Account
+
+  # mappings:
+  #   # App:
+  #   #   is_bundle: false
+  #   #   dir: '%kernel.project_dir%/src/Entity'
+  #   #   prefix: 'App\Entity'
+  #   #   alias: App
+  #   Account:
+  #     is_bundle: false
+  #     dir: '%kernel.project_dir%/src/Account/src/Infrastructure/Entity'
+  #     prefix: 'Account\Infrastructure\Entity'
+  #     alias: Account
 
 when@test:
   doctrine:

@@ -13,7 +13,7 @@ class ListPlayersQueryHandler implements QueryHandlerInterface
 
     public function __construct(ManagerRegistry $doctrine)
     {
-        $this->em = $doctrine->getManager();
+        $this->em = $doctrine->getManager('account'); // TODO: config yaml the right manager to inject it automatically
     }
 
     public function handle(object $query): array
