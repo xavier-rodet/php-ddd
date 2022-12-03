@@ -27,8 +27,8 @@ class PlayerMapper
         $doctrineEntity->setId($domainEntity->id->value);
         $doctrineEntity->setEmail($domainEntity->email->value);
         $doctrineEntity->setNickname($domainEntity->nickname);
-        // TODO: how to handle this ? because we don't want to save default AVATAR URL sent from domain aggregate
-        $doctrineEntity->setAvatarUrl($domainEntity->avatarUrl()); 
+        $avatarUrl = $domainEntity->getAvatarUrl() !== DomainPlayer::DEFAULT_AVATAR_URL ? $domainEntity->getAvatarUrl() : null;
+        $doctrineEntity->setAvatarUrl($avatarUrl); 
         $doctrineEntity->setCredits($domainEntity->credits);
 
         return $doctrineEntity;

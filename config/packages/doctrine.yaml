@@ -25,29 +25,6 @@ doctrine:
             prefix: 'Account\Infrastructure\Entity'
             alias: Account
 
-  # orm:
-  #   auto_generate_proxy_classes: true
-  #   naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-  #   auto_mapping: true
-  #   mappings:
-  #     Account:
-  #       type: annotation
-  #       dir: '%kernel.project_dir%/src/Account/src/Infrastructure/Entity'
-  #       prefix: 'Account\Infrastructure\Entity'
-  #       alias: Account
-
-  # mappings:
-  #   # App:
-  #   #   is_bundle: false
-  #   #   dir: '%kernel.project_dir%/src/Entity'
-  #   #   prefix: 'App\Entity'
-  #   #   alias: App
-  #   Account:
-  #     is_bundle: false
-  #     dir: '%kernel.project_dir%/src/Account/src/Infrastructure/Entity'
-  #     prefix: 'Account\Infrastructure\Entity'
-  #     alias: Account
-
 when@test:
   doctrine:
     dbal:

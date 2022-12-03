@@ -46,7 +46,7 @@ class Player
         $this->credits += $credits;
     }
 
-    public function avatarUrl(): string
+    public function getAvatarUrl(): string
     {
         return $this->avatarUrl ?? self::DEFAULT_AVATAR_URL;
     }

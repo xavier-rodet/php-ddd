@@ -1,14 +1,6 @@
-# doctrine_migrations:
 migrations_paths:
   # namespace is arbitrary but should be different from App\Migrations
   # as migrations classes should NOT be autoloaded
-  # 'DoctrineMigrations': '%kernel.project_dir%/migrations'
-  'Account\DoctrineMigrations': 'src/Account/migrations/'
-# enable_profiler: false
+  'DoctrineMigrations': 'src/Account/migrations/'
 connection: account
 em: account
-# # src/MyBundle/Resources/config/migrations/base.yml
-# name: BaseMigrations
-# migrations_namespace: MyBundle\Migrations\Base
-# table_name: Migrations
-# migrations_directory: src/MyBundle/Migrations/Base
