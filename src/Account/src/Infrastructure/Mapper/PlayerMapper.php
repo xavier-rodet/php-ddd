@@ -1,5 +1,7 @@
 <?php
 
+namespace Account\Infrastructure\Mapper;
+
 use Account\Domain\Aggregate\Player as DomainPlayer;
 use Account\Infrastructure\Entity\Player as DoctrinePlayer;
 

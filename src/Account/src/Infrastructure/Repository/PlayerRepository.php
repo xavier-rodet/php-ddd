@@ -5,11 +5,11 @@ namespace Account\Infrastructure\Repository;
 use Account\Domain\Aggregate\Player as AggregatePlayer;
 use Account\Domain\Repository\PlayerRepositoryInterface;
 use Account\Infrastructure\Entity\Player;
+use Account\Infrastructure\Mapper\PlayerMapper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityNotFoundException;
 // use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use PlayerMapper;
 use SharedKernel\Domain\ValueObject\Uuid;
 
 class PlayerRepository extends ServiceEntityRepository implements PlayerRepositoryInterface
