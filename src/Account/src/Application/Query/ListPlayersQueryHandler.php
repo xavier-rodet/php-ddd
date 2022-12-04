@@ -18,9 +18,9 @@ class ListPlayersQueryHandler implements QueryHandlerInterface
 
     public function handle(object $query): array
     {
-        $query = $this->em->createQuery("SELECT * FROM players");
-
-        return $query->getArrayResult();
+        return $this->em
+            ->createQuery("SELECT p FROM Account:Player p")
+            ->getArrayResult();
     }
 
     public function listenTo(): string

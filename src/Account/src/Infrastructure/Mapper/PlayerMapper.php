@@ -4,15 +4,17 @@ namespace Account\Infrastructure\Mapper;
 
 use Account\Domain\Aggregate\Player as DomainPlayer;
 use Account\Infrastructure\Entity\Player as DoctrinePlayer;
+use SharedKernel\Domain\ValueObject\Email;
+use SharedKernel\Domain\ValueObject\Uuid;
 
 class PlayerMapper
 {
     public static function mapToDomain(DoctrinePlayer $doctrineEntity): DomainPlayer
     {
         $domainPlayer = new DomainPlayer(
-            $doctrineEntity->getEmail(),
+            new Email($doctrineEntity->getEmail()),
             $doctrineEntity->getNickname(),
-            $doctrineEntity->getId(),
+            new Uuid($doctrineEntity->getId()),
             $doctrineEntity->getAvatarUrl(),
             $doctrineEntity->getCredits()
         );

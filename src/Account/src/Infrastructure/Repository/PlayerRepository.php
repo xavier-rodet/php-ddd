@@ -34,6 +34,7 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
     public function add(AggregatePlayer $player): void
     {
         $doctrineEntity = PlayerMapper::mapFromDomain($player);
+        dd('new doctrine entity', $doctrineEntity);
         $this->getEntityManager()->persist($doctrineEntity);
         // $this->getEntityManager()->flush();
     }

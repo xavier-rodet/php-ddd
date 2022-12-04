@@ -10,25 +10,25 @@ use Doctrine\Persistence\ManagerRegistry;
 class DoctrineFlushMiddleware implements CommandBusInterface
 {    
     private CommandBusInterface $next;
-    private EntityManagerInterface $entityManager;
+    private EntityManagerInterface $em;
 
     public function __construct(
         CommandBusInterface $next,
         ManagerRegistry $doctrine
     ) {
         $this->next = $next;
-        $this->entityManager = $doctrine->getManager();
+        $this->em = $doctrine->getManager('account');  // TODO: config yaml the right manager to inject it automatically
     }
     
     public function dispatch(object $command): CommandResponse
     {
-        $this->entityManager->getConnection()->beginTransaction();
+        $this->em->getConnection()->beginTransaction();
         try {
             $commandResponse = $this->next->dispatch($command);
-            $this->entityManager->flush();
-            $this->entityManager->getConnection()->commit();
+            $this->em->flush();
+            $this->em->getConnection()->commit();
         } catch(\Exception $error) {
-            $this->entityManager->getConnection()->rollback();
+            $this->em->getConnection()->rollback();
         }
 
         return $commandResponse;

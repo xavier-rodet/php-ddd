@@ -2,22 +2,34 @@
 doctrine:
   dbal:
     connections:
+      # Default connection only for make:entity (See: https://github.com/symfony/maker-bundle/pull/1119)
+      default:
+        url: ''
+        driver: 'pdo_pgsql'
+        server_version: '14'
+        charset: utf8
       account:
         url: '%env(resolve:ACCOUNT_DATABASE_URL)%'
         driver: 'pdo_pgsql'
         server_version: '14'
         charset: utf8
 
-    # IMPORTANT: You MUST configure your server version,
-    # either here or in the DATABASE_URL env var (see .env file)
-    #server_version: '13'
   orm:
     auto_generate_proxy_classes: true
     entity_managers:
+      # Default entity_manager only for make:entity (See: https://github.com/symfony/maker-bundle/pull/1119)
+      default:
+        connection: default
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        mappings:
+          App:
+            type: attribute
+            dir: '%kernel.project_dir%/src/'
+            prefix: 'App\Entity'
+            alias: App
       account:
         connection: account
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: true
         mappings:
           Account:
             type: attribute

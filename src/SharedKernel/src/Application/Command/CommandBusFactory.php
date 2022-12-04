@@ -2,13 +2,22 @@
 
 namespace SharedKernel\Application\Command;
 
+use Doctrine\Persistence\ManagerRegistry;
+use SharedKernel\Application\Command\Middleware\DoctrineFlushMiddleware;
 use SharedKernel\Application\Command\Middleware\LoggerMiddleware;
 use Psr\Log\LoggerInterface;
 
 class CommandBusFactory
 {
-    static function build(iterable $handlers, LoggerInterface  $logger): CommandBusInterface
+    static function build(iterable $handlers, LoggerInterface  $logger, ManagerRegistry $doctrine): CommandBusInterface
     {
-        return new LoggerMiddleware(new CommandBus($handlers), $logger);
+        //TODO: add EventDispatcherMiddleware
+        return new DoctrineFlushMiddleware(
+            new LoggerMiddleware(
+                new CommandBus($handlers),
+                $logger
+            ),
+            $doctrine
+        );
     }
 }
