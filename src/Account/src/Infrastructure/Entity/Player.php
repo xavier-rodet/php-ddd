@@ -4,21 +4,25 @@ namespace Account\Infrastructure\Entity;
 
 use Account\Infrastructure\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Types\UuidType;
+use Symfony\Component\Uid\Uuid;
+
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
 class Player
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: "custom")]
-    #[ORM\Column(type: "string", length: 36, unique: true, nullable: false)]
-    #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
-    private string $id;
+    // #[ORM\Column(type: "string", length: 36, unique: true, nullable: false)]
+    #[ORM\Column(type: "uuid", unique: true)]
+    // #[ORM\GeneratedValue(strategy: "CUSTOM")]
+    // #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    private Uuid $id;
 
-    public function setId(string $id): void
+    public function setId(Uuid $id): void
     {
         $this->id = $id;
     }
 
-    public function getId(): string
+    public function getId(): Uuid
     {
         return $this->id;
     }

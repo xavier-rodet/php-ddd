@@ -1,2 +1,2 @@
-# doctrine_migrations:
-#   enable_profiler: false
+doctrine_migrations:
+  enable_profiler: false

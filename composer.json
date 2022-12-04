@@ -64,6 +64,10 @@
     "symfony/polyfill-php81": "*"
   },
   "scripts": {
+    "migration-diff": "composer run-script account-migration-diff",
+    "migration-migrate": "composer run-script account-migration-migrate",
+    "account-migration-diff": "symfony console doctrine:migrations:diff --configuration src/Account/config/packages/doctrine_migrations.yaml",
+    "account-migration-migrate": "symfony console doctrine:migrations:migrate --configuration src/Account/config/packages/doctrine_migrations.yaml",
     "auto-scripts": {
       "cache:clear": "symfony-cmd",
       "assets:install %PUBLIC_DIR%": "symfony-cmd"
@@ -86,7 +90,6 @@
     }
   },
   "require-dev": {
-    "symfony/maker-bundle": "^1.48",
     "symfony/stopwatch": "6.1.*",
     "symfony/web-profiler-bundle": "6.1.*"
   }

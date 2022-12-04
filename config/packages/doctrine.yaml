@@ -20,7 +20,7 @@ doctrine:
         auto_mapping: true
         mappings:
           Account:
-            type: annotation
+            type: attribute
             dir: '%kernel.project_dir%/src/Account/src/Infrastructure/Entity'
             prefix: 'Account\Infrastructure\Entity'
             alias: Account
