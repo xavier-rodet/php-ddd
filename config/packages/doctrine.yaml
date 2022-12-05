@@ -17,7 +17,7 @@ doctrine:
   orm:
     auto_generate_proxy_classes: true
     entity_managers:
-      # Default entity_manager only for make:entity (See: https://github.com/symfony/maker-bundle/pull/1119)
+      # Default entity_manager, only for make:entity (See: https://github.com/symfony/maker-bundle/pull/1119)
       default:
         connection: default
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
@@ -27,6 +27,7 @@ doctrine:
             dir: '%kernel.project_dir%/src/'
             prefix: 'App\Entity'
             alias: App
+      # IMPORTANT: all domains entity managers must have same name as their base namespace (used in EntityManagerSelectorTrait)
       account:
         connection: account
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware

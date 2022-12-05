@@ -8,17 +8,14 @@ use Account\Infrastructure\Entity\Player;
 use Account\Infrastructure\Mapper\PlayerMapper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityNotFoundException;
-// use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use SharedKernel\Domain\ValueObject\Uuid;
 
 class PlayerRepository extends ServiceEntityRepository implements PlayerRepositoryInterface
-// class PlayerRepository extends EntityRepository implements PlayerRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Player::class);
-        // parent::__construct($registry->getManager('account'), Player::class);
     }
 
     public function get(Uuid $id): AggregatePlayer
@@ -34,9 +31,7 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
     public function add(AggregatePlayer $player): void
     {
         $doctrineEntity = PlayerMapper::mapFromDomain($player);
-        dd('new doctrine entity', $doctrineEntity);
         $this->getEntityManager()->persist($doctrineEntity);
-        // $this->getEntityManager()->flush();
     }
 
     public function update(AggregatePlayer $player): void
@@ -48,7 +43,6 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
 
         $doctrineEntity = PlayerMapper::mapFromDomain($player, $doctrineEntity);
         $this->getEntityManager()->remove($doctrineEntity);
-        // $this->getEntityManager()->flush();
     }
 
     public function delete(Uuid $id): void
@@ -60,6 +54,5 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
         }
 
         $this->getEntityManager()->remove($doctrineEntity);
-        // $this->getEntityManager()->flush();
     }
 }

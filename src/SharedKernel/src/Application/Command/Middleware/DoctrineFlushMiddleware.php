@@ -4,31 +4,34 @@ namespace SharedKernel\Application\Command\Middleware;
 
 use SharedKernel\Application\Command\CommandBusInterface;
 use SharedKernel\Application\Command\CommandResponse;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use SharedKernel\Application\EntityManagerSelectorTrait;
 
 class DoctrineFlushMiddleware implements CommandBusInterface
-{    
+{
+    use EntityManagerSelectorTrait;
+    
     private CommandBusInterface $next;
-    private EntityManagerInterface $em;
 
     public function __construct(
         CommandBusInterface $next,
         ManagerRegistry $doctrine
     ) {
         $this->next = $next;
-        $this->em = $doctrine->getManager('account');  // TODO: config yaml the right manager to inject it automatically
+        $this->doctrine = $doctrine;
     }
     
     public function dispatch(object $command): CommandResponse
     {
-        $this->em->getConnection()->beginTransaction();
+        $em = $this->getDomainEntityManager($command);
+
+        $em->getConnection()->beginTransaction();
         try {
             $commandResponse = $this->next->dispatch($command);
-            $this->em->flush();
-            $this->em->getConnection()->commit();
+            $em->flush();
+            $em->getConnection()->commit();
         } catch(\Exception $error) {
-            $this->em->getConnection()->rollback();
+            $em->getConnection()->rollback();
         }
 
         return $commandResponse;
