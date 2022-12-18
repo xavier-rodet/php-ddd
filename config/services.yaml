@@ -1,7 +1,7 @@
 imports:
-  # - { resource: ../src/SharedKernel/config/services.yaml }
+  - { resource: ../src/SharedKernel/config/services.yaml }
   - { resource: ../src/Account/config/services.yaml }
-  # - { resource: ../src/Other/config/services.yaml }
+  - { resource: ../src/Other/config/services.yaml }
 
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
@@ -16,51 +16,12 @@ services:
     autowire: true # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-  # this config only applies to the services created by this file
-  # see: https://symfony.com/doc/current/service_container/tags.html#autoconfiguring-tags
-  _instanceof:
-    # services whose classes are instances of CustomInterface will be tagged automatically
-    SharedKernel\Application\Command\CommandHandlerInterface:
-      tags: ['ddd.command_handler']
-    SharedKernel\Application\Query\QueryHandlerInterface:
-      tags: ['ddd.query_handler']
-    SharedKernel\Application\Event\EventHandlerInterface:
-      tags: ['ddd.event_handler']
-
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
 
   App\:
     resource: '../src/*'
-    exclude: '../src/{Kernel.php,SharedKernel,PhpExtension,Account,Other}'
+    exclude: '../src/{Kernel.php,SharedKernel,Account,Other}'
 
   PhpExtension\:
     resource: '../php-extension/'
-
-  SharedKernel\:
-    resource: '../src/SharedKernel/src/'
-
-  Account\:
-    resource: '../src/Account/src/'
-    exclude: '../src/Account/src/Infrastructure/Entity'
-
-  Other\:
-    resource: '../src/Other/src/'
-    exclude: '../src/Other/src/Infrastructure/Entity'
-
-  # add more service definitions when explicit configuration is needed
-  # please note that last definitions always *replace* previous ones
-  SharedKernel\Application\Command\CommandBusInterface:
-    factory: 'SharedKernel\Application\Command\CommandBusFactory::build'
-    arguments: [!tagged ddd.command_handler]
-    lazy: true
-
-  SharedKernel\Application\Query\QueryBusInterface:
-    factory: 'SharedKernel\Application\Query\QueryBusFactory::build'
-    arguments: [!tagged ddd.query_handler]
-    lazy: true
-
-  SharedKernel\Application\Event\EventBusInterface:
-    factory: 'SharedKernel\Application\Event\EventBusFactory::build'
-    arguments: [!tagged ddd.event_handler]
-    lazy: true

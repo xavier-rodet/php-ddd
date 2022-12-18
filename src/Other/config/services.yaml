@@ -11,7 +11,7 @@ services:
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
   _instanceof:
-    # services whose classes are instances of CustomInterface will be tagged automatically
+    # services whose classes are instances of this interfaces will be tagged automatically
     SharedKernel\Application\Command\CommandHandlerInterface:
       tags: ['ddd.command_handler']
     SharedKernel\Application\Query\QueryHandlerInterface:

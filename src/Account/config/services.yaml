@@ -10,16 +10,16 @@ services:
     autowire: true # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-  # # this config only applies to the services created by this file
-  # # see: https://symfony.com/doc/current/service_container/tags.html#autoconfiguring-tags
-  # _instanceof:
-  #   # services whose classes are instances of CustomInterface will be tagged automatically
-  #   SharedKernel\Application\Command\CommandHandlerInterface:
-  #     tags: ['ddd.command_handler']
-  #   SharedKernel\Application\Query\QueryHandlerInterface:
-  #     tags: ['ddd.query_handler']
-  #   SharedKernel\Application\Event\EventHandlerInterface:
-  #     tags: ['ddd.event_handler']
+  # this config only applies to the services created by this file
+  # see: https://symfony.com/doc/current/service_container/tags.html#autoconfiguring-tags
+  _instanceof:
+    # services whose classes are instances of this interfaces will be tagged automatically
+    SharedKernel\Application\Command\CommandHandlerInterface:
+      tags: ['ddd.command_handler']
+    SharedKernel\Application\Query\QueryHandlerInterface:
+      tags: ['ddd.query_handler']
+    SharedKernel\Application\Event\EventHandlerInterface:
+      tags: ['ddd.event_handler']
 
   Account\:
     resource: '../src/'

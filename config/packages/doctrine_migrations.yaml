@@ -1,6 +1,2 @@
 doctrine_migrations:
   enable_profiler: false
-  migrations_paths:
-    # namespace is arbitrary but should be different from App\Migrations
-    # as migrations classes should NOT be autoloaded
-    'AccountDoctrineMigrations': '../Bc/Account/Account/migrations/'
