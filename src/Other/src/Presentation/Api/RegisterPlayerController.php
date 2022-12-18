@@ -1,8 +1,8 @@
 <?php
 
-namespace Account\Presentation\Api;
+namespace Other\Presentation\Api;
 
-use Account\Application\Command\RegisterPlayerCommand;
+use Other\Application\Command\RegisterPlayerCommand;
 use SharedKernel\Application\Command\CommandBusInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;

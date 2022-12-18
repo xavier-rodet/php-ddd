@@ -1,0 +1,5 @@
+controllers_account:
+  resource: '../src/Presentation/Api/'
+  type: annotation
+  name_prefix: 'account_'
+  prefix: 'account'

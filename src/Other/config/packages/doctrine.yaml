@@ -1,0 +1,23 @@
+# See: https://symfony.com/doc/current/doctrine/multiple_entity_managers.html
+doctrine:
+  dbal:
+    connections:
+      other:
+        url: '%env(resolve:OTHER_DATABASE_URL)%'
+        driver: 'pdo_pgsql'
+        server_version: '14'
+        charset: utf8
+
+  orm:
+    auto_generate_proxy_classes: true
+    entity_managers:
+      # IMPORTANT: all domains entity managers must have same name as their base namespace (used in EntityManagerSelectorTrait)
+      other:
+        connection: other
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        mappings:
+          Other:
+            type: attribute
+            dir: '%kernel.project_dir%/src/Other/src/Infrastructure/Entity'
+            prefix: 'Other\Infrastructure\Entity'
+            alias: Other

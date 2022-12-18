@@ -3,7 +3,7 @@
 namespace SharedKernel\Application\Command;
 
 class CommandBus implements CommandBusInterface
-{    
+{
     private array $handlers = [];
 
     /**

@@ -1,10 +1,4 @@
 controllers_account:
-  resource: '../src/Account/src/Presentation/Api/'
-  type: annotation
-# controllers_game:
-#   resource: '../src/Game/Presentation/Controller/'
-#   type: annotation
-
-# controllers_store:
-#   resource: '../src/Store/Presentation/Controller/'
-#   type: annotation
+  resource: ../src/Account/config/routes.yaml
+controllers_other:
+  resource: '../src/Other/config/routes.yaml'

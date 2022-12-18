@@ -1,3 +1,7 @@
+imports:
+  - { resource: ../../src/Account/config/packages/doctrine.yaml }
+  - { resource: ../../src/Other/config/packages/doctrine.yaml }
+
 # See: https://symfony.com/doc/current/doctrine/multiple_entity_managers.html
 doctrine:
   dbal:
@@ -5,11 +9,6 @@ doctrine:
       # Default connection only for make:entity (See: https://github.com/symfony/maker-bundle/pull/1119)
       default:
         url: ''
-        driver: 'pdo_pgsql'
-        server_version: '14'
-        charset: utf8
-      account:
-        url: '%env(resolve:ACCOUNT_DATABASE_URL)%'
         driver: 'pdo_pgsql'
         server_version: '14'
         charset: utf8
@@ -27,16 +26,6 @@ doctrine:
             dir: '%kernel.project_dir%/src/'
             prefix: 'App\Entity'
             alias: App
-      # IMPORTANT: all domains entity managers must have same name as their base namespace (used in EntityManagerSelectorTrait)
-      account:
-        connection: account
-        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        mappings:
-          Account:
-            type: attribute
-            dir: '%kernel.project_dir%/src/Account/src/Infrastructure/Entity'
-            prefix: 'Account\Infrastructure\Entity'
-            alias: Account
 
 when@test:
   doctrine:

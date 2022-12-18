@@ -1,8 +1,8 @@
 <?php
 
-namespace Account\Presentation\Api;
+namespace Other\Presentation\Api;
 
-use Account\Application\Query\ListPlayersQuery;
+use Other\Application\Query\ListPlayersQuery;
 use SharedKernel\Application\Query\QueryBusInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

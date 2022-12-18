@@ -1,8 +1,8 @@
 <?php
 
-namespace Account\Infrastructure\Entity;
+namespace Other\Infrastructure\Entity;
 
-use Account\Infrastructure\Repository\PlayerRepository;
+use Other\Infrastructure\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;

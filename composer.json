@@ -44,14 +44,16 @@
   "autoload": {
     "psr-4": {
       "App\\": "src/",
-      "PhpExtension\\": "src/PhpExtension",
+      "PhpExtension\\": "php-extension",
       "SharedKernel\\": "src/SharedKernel/src",
-      "Account\\": "src/Account/src"
+      "Account\\": "src/Account/src",
+      "Other\\": "src/Other/src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Account\\Tests\\": "src/Account/tests"
+      "Account\\Tests\\": "src/Account/tests",
+      "Other\\Tests\\": "src/Other/tests"
     }
   },
   "replace": {
