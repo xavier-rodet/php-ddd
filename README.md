@@ -12,24 +12,30 @@ Account / Game / Social
 
 ### Account
 
-- Publisher can RegisterPublisher/ UpdatePublisher
-- Player can RegisterPlayer / UpdatePlayer
-- Anyone can ListPlayers / ListPublishers
+- Anyone can RegisterPublisher [POST] /publisher
+- Publisher can UpdatePublisher [PUT] /publisher/:id
+- Anyone can ListPublishers [GET] /publisher
+- Anyone can RegisterPlayer [POST] /players
+- Player can UpdatePlayer [PUT] /players/:id
+- Anyone can ListPlayers [GET] /players
 
 ### Game
 
 - Store:
-  - Publisher can PublishGame
-  - Player can PurchaseCredits / PurchaseGame
+  - Publisher can PublishGame : [POST] /games
+  - Player can PurchaseCredits : [POST] /players/:id/credits
+  - Player can PurchaseGame : [POST] /games/:id/purchase
 - Library:
-  - Player can ListLibraryGames
-  - Player can DownloadLibraryGame
+  - Player can ListLibraryGames [GET] /players/:id/games
+  - Player can DownloadLibraryGame [GET] /games/:id/download
 - Review:
-  - Anyone can ListGameReviews
-  - Player can AddReviewToLibraryGame
+  - Anyone can ListGameReviews [GET] /games/:id/reviews
+  - Player can AddReviewToLibraryGame [POST] /games/:id/reviews
 
 ### Social
 
-- Player can UpdateStatus
-- Player can ListFriends / AddFriend / BlockFriend
-- Player can SendMessageToFriend
+- Player can UpdateStatus [PUT] /players/:id/status
+- Player can ListFriends [GET] /players/:id/friends
+- Player can AddFriend [POST] /players/:id/friends
+- Player can RemoveFriend [DELETE] /players/:id/friends/:id
+- Player can SendMessageToFriend [POST] /players/:id/message
