@@ -11,11 +11,7 @@ use Symfony\Component\Uid\Uuid;
 class Player
 {
     #[ORM\Id]
-    // #[ORM\Column(type: "string", length: 36, unique: true, nullable: false)]
     #[ORM\Column(type: "uuid", unique: true, nullable: false)]
-    // #[ORM\GeneratedValue(strategy: "CUSTOM")]
-    // #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
-    // private Uuid $id;
     private string $id;
 
     #[ORM\Column(length: 255)]
