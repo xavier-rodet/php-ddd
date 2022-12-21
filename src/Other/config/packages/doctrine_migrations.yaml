@@ -1,6 +1,6 @@
 migrations_paths:
   # namespace is arbitrary but should be different from App\Migrations
   # as migrations classes should NOT be autoloaded
-  'DoctrineMigrations': 'src/Other/migrations/'
+  'DoctrineMigrations': 'src/Other/migration/'
 connection: other
 em: other
