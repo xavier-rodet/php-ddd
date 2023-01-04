@@ -19,7 +19,7 @@ class QueryBus implements QueryBusInterface
         }
     }
 
-    public function dispatch(object $query): array
+    public function dispatch(QueryInterface $query): array
     {
         $queryClass = get_class($query);
         $handler = $this->handlers[$queryClass];

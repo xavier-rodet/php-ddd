@@ -3,5 +3,5 @@
 namespace SharedKernel\Application\Query;
 
 interface QueryBusInterface {  
-    function dispatch(object $query): array;
+    function dispatch(QueryInterface $query): array;
 }

@@ -21,14 +21,19 @@ class LoggerMiddleware implements CommandBusInterface
     
     public function dispatch(object $command): CommandResponse
     {
-        $startTime = microtime(true);
+        $startTime = $this->getMilliseconds();
         $response = $this->next->dispatch($command);
-        $endTime = microtime(true);
+        $endTime = $this->getMilliseconds();
         $elapsedTime = $endTime - $startTime;
 
-        $message = 'Command '. get_class($command) . ' took: ' . $elapsedTime;
-        $this->logger->info($message);
+        $this->logger->info(sprintf('Command %s took: %s ms', get_class($command), $elapsedTime));
 
         return $response;
+    }
+
+    private function getMilliseconds(): int
+    {
+        $mt = explode(' ', microtime());
+        return intval( $mt[1] * 1E3 ) + intval( round( $mt[0] * 1E3 ) );
     }
 }

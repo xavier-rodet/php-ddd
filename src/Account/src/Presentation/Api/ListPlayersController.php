@@ -3,26 +3,24 @@
 namespace Account\Presentation\Api;
 
 use Account\Application\Query\ListPlayersQuery;
+use Psr\Log\LoggerInterface;
+use SharedKernel\Application\Presentation\Api\AbstractQueryController;
 use SharedKernel\Application\Query\QueryBusInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ListPlayersController extends AbstractController
+class ListPlayersController extends AbstractQueryController
 {
-    private QueryBusInterface $queryBus;
-
-    public function __construct (QueryBusInterface $queryBus)
-    {
-        $this->queryBus = $queryBus;
+    public function __construct(
+        QueryBusInterface $queryBus,
+        LoggerInterface $logger
+    ) {
+        parent::__construct($queryBus, $logger);
     }
 
     #[Route('/players', name: 'list_players', methods: ['GET'])]
     public function __invoke(): JsonResponse
     {
-        $query = new ListPlayersQuery();
-        $response = $this->queryBus->dispatch($query);
-
-        return new JsonResponse($response, JsonResponse::HTTP_OK);
+        return $this->getJsonResponse(new ListPlayersQuery(), JsonResponse::HTTP_OK);
     }
 }

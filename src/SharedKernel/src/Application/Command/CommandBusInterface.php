@@ -3,5 +3,5 @@
 namespace SharedKernel\Application\Command;
 
 interface CommandBusInterface {  
-    function dispatch(object $command): CommandResponse;
+    function dispatch(CommandInterface $command): CommandResponse;
 }

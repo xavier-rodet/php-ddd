@@ -2,6 +2,8 @@
 
 namespace Account\Application\Query;
 
-class ListPlayersQuery
+use SharedKernel\Application\Query\QueryInterface;
+
+class ListPlayersQuery implements QueryInterface
 {
 }

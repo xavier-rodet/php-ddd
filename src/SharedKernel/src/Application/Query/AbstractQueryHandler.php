@@ -12,6 +12,6 @@ abstract class AbstractQueryHandler implements QueryHandlerInterface {
         $this->doctrine = $doctrine;
     }
 
-    abstract function handle(object $query): array;
+    abstract function handle(QueryInterface $query): array;
     abstract function listenTo(): string;
 }

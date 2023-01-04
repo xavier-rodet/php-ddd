@@ -3,22 +3,25 @@
 namespace Other\Presentation\Api;
 
 use Other\Application\Command\RegisterPlayerCommand;
+use Psr\Log\LoggerInterface;
 use SharedKernel\Application\Command\CommandBusInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use SharedKernel\Application\Presentation\Api\AbstractCommandController;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RegisterPlayerController extends AbstractController
+class RegisterPlayerController extends AbstractCommandController
 {
     private SerializerInterface $serializer;
-    private CommandBusInterface $commandBus;
 
-    public function __construct (SerializerInterface $serializer, CommandBusInterface $commandBus)
-    {
+    public function __construct (
+        SerializerInterface $serializer, 
+        CommandBusInterface $commandBus,
+        LoggerInterface $logger
+    ) {
+        parent::__construct($commandBus, $logger);
         $this->serializer = $serializer;
-        $this->commandBus = $commandBus;
     }
 
     #[Route('/players', name: 'register_player', methods: ['POST'])]
@@ -29,8 +32,7 @@ class RegisterPlayerController extends AbstractController
             RegisterPlayerCommand::class,
             'json'
         );
-        $response = $this->commandBus->dispatch($command);
 
-        return new JsonResponse($response->id, JsonResponse::HTTP_CREATED);
+        return $this->getJsonResponse($command, JsonResponse::HTTP_CREATED);
     }
 }

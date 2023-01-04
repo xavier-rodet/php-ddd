@@ -19,7 +19,7 @@ class CommandBus implements CommandBusInterface
         }
     }
 
-    public function dispatch(object $command): CommandResponse
+    public function dispatch(CommandInterface $command): CommandResponse
     {
         $commandClass = get_class($command);
         $handler = $this->handlers[$commandClass];

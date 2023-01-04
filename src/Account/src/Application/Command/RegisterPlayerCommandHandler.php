@@ -5,8 +5,11 @@ namespace Account\Application\Command;
 use Account\Domain\Aggregate\Player;
 use Account\Domain\Event\PlayerRegisteredEvent;
 use Account\Domain\Repository\PlayerRepositoryInterface;
+use SharedKernel\Application\Command\CommandErrorResponse;
 use SharedKernel\Application\Command\CommandHandlerInterface;
+use SharedKernel\Application\Command\CommandInterface;
 use SharedKernel\Application\Command\CommandResponse;
+use SharedKernel\Application\Command\CommandSuccessResponse;
 use SharedKernel\Domain\ValueObject\Email;
 
 class RegisterPlayerCommandHandler implements CommandHandlerInterface
@@ -24,7 +27,7 @@ class RegisterPlayerCommandHandler implements CommandHandlerInterface
      * @param  RegisterPlayerCommand $command
      * @return CommandResponse
      */
-    public function handle(object $command): CommandResponse
+    public function handle(CommandInterface $command): CommandResponse
     {
         $player = new Player(
             email: new Email($command->email),

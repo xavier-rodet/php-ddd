@@ -32,6 +32,7 @@ class DoctrineFlushMiddleware implements CommandBusInterface
             $em->getConnection()->commit();
         } catch(\Exception $error) {
             $em->getConnection()->rollback();
+            throw $error;
         }
 
         return $commandResponse;
